@@ -51,30 +51,7 @@
                 </div>
             </form>
             
-            <div class="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">
-                <p>Default credentials:</p>
-                <div class="mt-2 grid grid-cols-2 gap-2 text-xs">
-                    <div class="bg-gray-100 dark:bg-gray-700 p-2 rounded">
-                        <p class="font-semibold">Admin</p>
-                        <p>Username: admin</p>
-                        <p>Password: admin123</p>
-                    </div>
-                    <div class="bg-gray-100 dark:bg-gray-700 p-2 rounded">
-                        <p class="font-semibold">Reception</p>
-                        <p>Username: reception</p>
-                        <p>Password: reception123</p>
-                    </div>
-                    <div class="bg-gray-100 dark:bg-gray-700 p-2 rounded">
-                        <p class="font-semibold">Security</p>
-                        <p>Username: security</p>
-                        <p>Password: security123</p>
-                    </div>
-                    <div class="bg-gray-100 dark:bg-gray-700 p-2 rounded">
-                        <p class="font-semibold">Teacher</p>
-                        <p>Username: teacher</p>
-                        <p>Password: teacher123</p>
-                    </div>
-                </div>
+            
             </div>
         </div>
     </div>
@@ -119,7 +96,7 @@
                 </span>
             </div>
             
-            <!-- Data Sync Status Bar (New)  -->
+            <!-- Data Sync Status Bar (New) -->
             <div class="mt-2 p-2 bg-green-50 dark:bg-green-900 rounded-lg text-center">
                 <span id="syncStatus" class="text-green-700 dark:text-green-200">
                     <i class="fas fa-sync mr-1"></i> Data synchronization ready
@@ -137,18 +114,269 @@
             </div>
         </header>
 
-        <!-- Rest of your application HTML -->
-        <!-- Admin View, Reception View, Security View, Teacher View, etc. -->
-        
+        <!-- Admin View -->
+        <div id="adminView" class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8 hidden">
+            <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Administration Dashboard</h2>
+            
+            <!-- Admin Tabs -->
+            <div class="mb-6 border-b border-gray-200 dark:border-gray-700">
+                <ul class="flex flex-wrap -mb-px text-sm font-medium text-center">
+                    <li class="mr-2">
+                        <button id="studentsTabBtn" class="studentsTab inline-block p-4 border-b-2 border-primary text-primary rounded-t-lg active">
+                            <i class="fas fa-user-graduate mr-1"></i> Students
+                        </button>
+                    </li>
+                    <li class="mr-2">
+                        <button id="classesTabBtn" class="classesTab inline-block p-4 border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 rounded-t-lg">
+                            <i class="fas fa-chalkboard mr-1"></i> Classes
+                        </button>
+                    </li>
+                    <li class="mr-2">
+                        <button id="usersTabBtn" class="usersTab inline-block p-4 border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 rounded-t-lg">
+                            <i class="fas fa-users-cog mr-1"></i> Users
+                        </button>
+                    </li>
+                    <li class="mr-2">
+                        <button id="systemTabBtn" class="systemTab inline-block p-4 border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 rounded-t-lg">
+                            <i class="fas fa-cogs mr-1"></i> System
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Students Tab Content -->
+            <div id="studentsTabContent" class="tab-content block">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4 gap-3">
+                    <div class="relative w-full md:w-1/2">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <i class="fas fa-search text-gray-400"></i>
+                        </div>
+                        <input type="text" id="studentSearch" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Search for student...">
+                    </div>
+                    <div class="flex space-x-2">
+                        <button id="addStudentBtn" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90">
+                            <i class="fas fa-plus mr-1"></i> Add Student
+                        </button>
+                        <button id="bulkAddStudentsBtn" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                            <i class="fas fa-file-import mr-1"></i> Bulk Import
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead class="bg-gray-50 dark:bg-gray-700">
+                            <tr>
+                                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Student Name</th>
+                                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">ID</th>
+                                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Class</th>
+                                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Family #</th>
+                                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Status</th>
+                                <th scope="col" class="px-4 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminStudentsList" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                            <!-- Students will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="mt-4 flex justify-between items-center">
+                    <div class="text-sm text-gray-500 dark:text-gray-400">
+                        Showing <span id="studentCount">0</span> students
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <span class="px-3 py-1 bg-primary text-white rounded">1</span>
+                        <button class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Classes Tab Content -->
+            <div id="classesTabContent" class="tab-content hidden">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4 gap-3">
+                    <div class="relative w-full md:w-1/2">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <i class="fas fa-search text-gray-400"></i>
+                        </div>
+                        <input type="text" id="classSearch" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Search for class...">
+                    </div>
+                    <div>
+                        <button id="addClassBtn" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90">
+                            <i class="fas fa-plus mr-1"></i> Add Class
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="classList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Class cards will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Users Tab Content -->
+            <div id="usersTabContent" class="tab-content hidden">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4 gap-3">
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white">User Management</h3>
+                    <div>
+                        <button id="addUserBtn" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90">
+                            <i class="fas fa-user-plus mr-1"></i> Add User
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead class="bg-gray-50 dark:bg-gray-700">
+                            <tr>
+                                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Username</th>
+                                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Role</th>
+                                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Full Name</th>
+                                <th scope="col" class="px-4 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersList" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                            <!-- Users will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="mt-4 p-4 bg-yellow-50 dark:bg-yellow-900/30 rounded-lg">
+                    <div class="text-sm text-yellow-800 dark:text-yellow-200">
+                        <i class="fas fa-exclamation-triangle mr-1"></i> <strong>Important:</strong>
+                    </div>
+                    <p class="text-sm text-yellow-700 dark:text-yellow-300 mt-1">
+                        Changing user credentials will take effect immediately. Make sure to keep track of admin credentials.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- System Tab Content -->
+            <div id="systemTabContent" class="tab-content hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- System Settings Section -->
+                    <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4">System Settings</h3>
+                        
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Current System Mode</label>
+                            <div class="flex space-x-4">
+                                <div class="flex items-center">
+                                    <input id="mode-morning" name="system-mode" type="radio" class="h-4 w-4 text-primary focus:ring-primary border-gray-300">
+                                    <label for="mode-morning" class="ml-2 block text-sm text-gray-900 dark:text-white">Morning (School Day)</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input id="mode-dismissal" name="system-mode" type="radio" class="h-4 w-4 text-primary focus:ring-primary border-gray-300">
+                                    <label for="mode-dismissal" class="ml-2 block text-sm text-gray-900 dark:text-white">Dismissal Time</label>
+                                </div>
+                            </div>
+                            <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                                <i class="fas fa-info-circle mr-1"></i> Changing the system mode affects what operations are allowed.
+                            </p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">System Reset Options</label>
+                            <button id="resetStatusBtn" class="mb-2 w-full px-4 py-2 flex items-center justify-center bg-yellow-500 text-white rounded-lg hover:bg-yellow-600">
+                                <i class="fas fa-sync-alt mr-2"></i> Reset All Student Statuses
+                            </button>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">
+                                This will reset all students to "Waiting in Class" status. Use at the start of a new day.
+                            </p>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Data Backup & Restore</label>
+                            <button id="backupDataBtn" class="mb-2 w-full px-4 py-2 flex items-center justify-center bg-primary text-white rounded-lg hover:bg-primary/90">
+                                <i class="fas fa-file-export mr-2"></i> Create Data Backup
+                            </button>
+                            <button id="restoreDataBtn" class="w-full px-4 py-2 flex items-center justify-center bg-primary text-white rounded-lg hover:bg-primary/90">
+                                <i class="fas fa-file-import mr-2"></i> Restore From Backup
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- System Status Section -->
+                    <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4">System Status</h3>
+                        
+                        <div class="mb-4">
+                            <div class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Current Statistics</div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm">
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Total Students</div>
+                                    <div class="text-xl font-bold text-gray-900 dark:text-white" id="statTotalStudents">0</div>
+                                </div>
+                                <div class="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm">
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Total Classes</div>
+                                    <div class="text-xl font-bold text-gray-900 dark:text-white" id="statTotalClasses">0</div>
+                                </div>
+                                <div class="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm">
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Students Waiting</div>
+                                    <div class="text-xl font-bold text-gray-900 dark:text-white" id="statStudentsWaiting">0</div>
+                                </div>
+                                <div class="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm">
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Students Absent</div>
+                                    <div class="text-xl font-bold text-gray-900 dark:text-white" id="statStudentsAbsent">0</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">System Version</div>
+                            <div class="text-sm text-gray-500 dark:text-gray-400">Dismissal Manager v1.0</div>
+                            <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Last updated: March 2025</div>
+                        </div>
+                        
+                        <div id="storageStatus" class="mt-4 p-3 bg-green-50 dark:bg-green-900/30 rounded-lg">
+                            <div class="text-sm text-green-800 dark:text-green-200">
+                                <i class="fas fa-check-circle mr-1"></i> Automatic data persistence is active
+                            </div>
+                            <div class="text-xs text-green-700 dark:text-green-300 mt-1">
+                                Your data is automatically saved and will persist between sessions
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reception View -->
+        <div id="receptionView" class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8 hidden">
+            <!-- Reception view content -->
+            <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Reception Dashboard</h2>
+            
+            <!-- Reception content here -->
+        </div>
+
+        <!-- Security View -->
+        <div id="securityView" class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8 hidden">
+            <!-- Security view content -->
+            <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Security Dashboard</h2>
+            
+            <!-- Security content here -->
+        </div>
+
+        <!-- Teacher View -->
+        <div id="teacherView" class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8 hidden">
+            <!-- Teacher view content -->
+            <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Teacher Dashboard</h2>
+            
+            <!-- Teacher content here -->
+        </div>
     </div>
 
-    <!-- Cache-busting script -->
+    <!-- Add the cache-busting script -->
     <script src="cache-busting.js"></script>
     
-    <!-- Data synchronization script -->
+    <!-- Add the data synchronization script -->
     <script src="data-sync.js"></script>
     
-    <!-- Main application script - Modified to use data-sync -->
+    <!-- Main application script -->
     <script>
         // Global variables
         let currentUser = null;
@@ -167,6 +395,31 @@
             document.getElementById('securityViewBtn').addEventListener('click', () => switchView('security'));
             document.getElementById('teacherViewBtn').addEventListener('click', () => switchView('teacher'));
             
+            // Admin tab buttons
+            document.getElementById('studentsTabBtn').addEventListener('click', () => switchAdminTab('students'));
+            document.getElementById('classesTabBtn').addEventListener('click', () => switchAdminTab('classes'));
+            document.getElementById('usersTabBtn').addEventListener('click', () => switchAdminTab('users'));
+            document.getElementById('systemTabBtn').addEventListener('click', () => switchAdminTab('system'));
+            
+            // System mode radio buttons
+            document.getElementById('mode-morning').addEventListener('change', () => {
+                if (document.getElementById('mode-morning').checked) {
+                    updateSystemMode('morning');
+                }
+            });
+            document.getElementById('mode-dismissal').addEventListener('change', () => {
+                if (document.getElementById('mode-dismissal').checked) {
+                    updateSystemMode('dismissal');
+                }
+            });
+            
+            // Other buttons
+            document.getElementById('addStudentBtn').addEventListener('click', showAddStudentModal);
+            document.getElementById('addClassBtn').addEventListener('click', showAddClassModal);
+            document.getElementById('resetStatusBtn').addEventListener('click', resetAllStudentStatuses);
+            document.getElementById('backupDataBtn').addEventListener('click', createDataBackup);
+            document.getElementById('restoreDataBtn').addEventListener('click', showRestoreDataModal);
+            
             // Initialize data sync and wait for it to complete
             initializeApp();
         });
@@ -175,11 +428,22 @@
         async function initializeApp() {
             try {
                 // Initialize data synchronization
-                await dataSync.init();
-                
-                // Update sync status
-                document.getElementById('syncStatus').innerHTML = 
-                    '<i class="fas fa-sync mr-1"></i> Data synchronized successfully';
+                if (typeof dataSync !== 'undefined') {
+                    await dataSync.init();
+                    
+                    // Update sync status
+                    document.getElementById('syncStatus').innerHTML = 
+                        '<i class="fas fa-sync mr-1"></i> Data synchronized successfully';
+                    
+                    // Listen for data updates from other devices
+                    document.addEventListener('dataUpdated', function(event) {
+                        console.log("Data was updated from another device");
+                        refreshCurrentView();
+                    });
+                } else {
+                    // If dataSync is not available, hide the sync status
+                    document.getElementById('syncStatus').parentElement.classList.add('hidden');
+                }
                 
                 // Check if user is already logged in
                 const savedUser = localStorage.getItem('currentUser');
@@ -188,18 +452,38 @@
                     completeLogin();
                 }
                 
-                // Listen for data updates from other devices
-                document.addEventListener('dataUpdated', function(event) {
-                    console.log("Data was updated from another device");
-                    refreshCurrentView();
-                });
+                // Check if localStorage is available
+                if (!isLocalStorageAvailable()) {
+                    document.getElementById('manualPersistenceControls').classList.remove('hidden');
+                    document.getElementById('storageStatus').innerHTML = `
+                        <div class="text-sm text-red-800 dark:text-red-200">
+                            <i class="fas fa-exclamation-circle mr-1"></i> Automatic data persistence is not available
+                        </div>
+                        <div class="text-xs text-red-700 dark:text-red-300 mt-1">
+                            Please use the Save/Load buttons to manually manage your data
+                        </div>
+                    `;
+                }
                 
             } catch (error) {
                 console.error("Error initializing app:", error);
-                document.getElementById('syncStatus').innerHTML = 
-                    '<i class="fas fa-exclamation-triangle mr-1"></i> Sync error: ' + error.message;
-                document.getElementById('syncStatus').className = 
-                    'text-red-700 dark:text-red-200';
+                if (document.getElementById('syncStatus')) {
+                    document.getElementById('syncStatus').innerHTML = 
+                        '<i class="fas fa-exclamation-triangle mr-1"></i> Sync error: ' + error.message;
+                    document.getElementById('syncStatus').className = 
+                        'text-red-700 dark:text-red-200';
+                }
+            }
+        }
+        
+        // Check if localStorage is available
+        function isLocalStorageAvailable() {
+            try {
+                localStorage.setItem('test', 'test');
+                localStorage.removeItem('test');
+                return true;
+            } catch (e) {
+                return false;
             }
         }
         
@@ -251,6 +535,9 @@
             
             // Update system status
             updateSystemStatus();
+            
+            // Load data
+            loadData();
         }
         
         // Handle logout
@@ -308,33 +595,126 @@
             refreshCurrentView();
         }
         
+        // Switch between admin tabs
+        function switchAdminTab(tabName) {
+            // Hide all tab content
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            
+            // Reset all tab buttons
+            document.querySelectorAll('.studentsTab, .classesTab, .usersTab, .systemTab').forEach(btn => {
+                btn.classList.remove('border-primary', 'text-primary');
+                btn.classList.add('border-transparent', 'hover:text-gray-600', 'hover:border-gray-300', 'dark:hover:text-gray-300');
+            });
+            
+            // Show selected tab content
+            document.getElementById(`${tabName}TabContent`).classList.remove('hidden');
+            
+            // Highlight selected tab button
+            const tabBtn = document.querySelector(`.${tabName}Tab`);
+            tabBtn.classList.remove('border-transparent', 'hover:text-gray-600', 'hover:border-gray-300', 'dark:hover:text-gray-300');
+            tabBtn.classList.add('border-primary', 'text-primary');
+            
+            // Refresh the tab content
+            refreshTabContent(tabName);
+        }
+        
         // Update system status
         function updateSystemStatus() {
             const statusElement = document.getElementById('systemStatus');
             
             if (systemMode === 'morning') {
                 statusElement.innerHTML = '<i class="fas fa-sun mr-1"></i> System Mode: School Day (Morning)';
+                document.getElementById('mode-morning').checked = true;
             } else {
                 statusElement.innerHTML = '<i class="fas fa-car mr-1"></i> System Mode: Dismissal Time';
+                document.getElementById('mode-dismissal').checked = true;
             }
         }
         
-        // Toggle system mode
-        function toggleSystemMode() {
-            systemMode = systemMode === 'morning' ? 'dismissal' : 'morning';
+        // Update system mode
+        function updateSystemMode(mode) {
+            systemMode = mode;
             updateSystemStatus();
             
             // Update system mode in data sync
-            dataSync.updateData({ systemMode })
-                .then(() => {
-                    console.log("System mode updated and synchronized");
-                })
-                .catch(error => {
-                    console.error("Error updating system mode:", error);
-                });
+            if (typeof dataSync !== 'undefined') {
+                dataSync.updateData({ systemMode })
+                    .then(() => {
+                        console.log("System mode updated and synchronized");
+                    })
+                    .catch(error => {
+                        console.error("Error updating system mode:", error);
+                    });
+            } else {
+                // Fallback to localStorage
+                saveData();
+            }
         }
         
-        // Refresh the current view based on synchronized data
+        // Load data
+        function loadData() {
+            if (typeof dataSync !== 'undefined') {
+                // Data is already loaded by dataSync.init()
+                refreshCurrentView();
+            } else {
+                // Fallback to localStorage
+                try {
+                    const studentsStr = localStorage.getItem('students');
+                    const classesStr = localStorage.getItem('classesData');
+                    const usersStr = localStorage.getItem('users');
+                    const systemModeStr = localStorage.getItem('systemMode');
+                    
+                    if (studentsStr) {
+                        window.students = JSON.parse(studentsStr);
+                    } else {
+                        window.students = [];
+                    }
+                    
+                    if (classesStr) {
+                        window.classesData = JSON.parse(classesStr);
+                    } else {
+                        window.classesData = [];
+                    }
+                    
+                    if (usersStr) {
+                        window.users = JSON.parse(usersStr);
+                    } else {
+                        window.users = [];
+                    }
+                    
+                    if (systemModeStr) {
+                        systemMode = systemModeStr;
+                    }
+                    
+                    updateSystemStatus();
+                    refreshCurrentView();
+                } catch (error) {
+                    console.error("Error loading data:", error);
+                }
+            }
+        }
+        
+        // Save data
+        function saveData() {
+            if (typeof dataSync !== 'undefined') {
+                // Data is automatically saved by dataSync
+                return;
+            }
+            
+            // Fallback to localStorage
+            try {
+                localStorage.setItem('students', JSON.stringify(window.students || []));
+                localStorage.setItem('classesData', JSON.stringify(window.classesData || []));
+                localStorage.setItem('users', JSON.stringify(window.users || []));
+                localStorage.setItem('systemMode', systemMode);
+            } catch (error) {
+                console.error("Error saving data:", error);
+            }
+        }
+        
+        // Refresh the current view
         function refreshCurrentView() {
             switch (currentView) {
                 case 'admin':
@@ -354,110 +734,246 @@
         
         // Refresh admin view
         function refreshAdminView() {
-            // Get synchronized data
-            const students = dataSync.data.students || [];
-            const classes = dataSync.data.classes || [];
-            
-            // Update students list
+            // Refresh the current tab
+            const activeTab = document.querySelector('.tab-content:not(.hidden)');
+            if (activeTab) {
+                const tabId = activeTab.id;
+                const tabName = tabId.replace('TabContent', '');
+                refreshTabContent(tabName);
+            }
+        }
+        
+        // Refresh tab content
+        function refreshTabContent(tabName) {
+            switch (tabName) {
+                case 'students':
+                    refreshStudentsTab();
+                    break;
+                case 'classes':
+                    refreshClassesTab();
+                    break;
+                case 'users':
+                    refreshUsersTab();
+                    break;
+                case 'system':
+                    refreshSystemTab();
+                    break;
+            }
+        }
+        
+        // Refresh students tab
+        function refreshStudentsTab() {
             const studentsList = document.getElementById('adminStudentsList');
-            if (studentsList) {
-                studentsList.innerHTML = '';
-                
-                if (students.length === 0) {
-                    studentsList.innerHTML = `
-                        <tr>
-                            <td colspan="6" class="px-4 py-3 text-center text-gray-500 dark:text-gray-400">
-                                No students found. Add students to get started.
-                            </td>
-                        </tr>
+            if (!studentsList) return;
+            
+            studentsList.innerHTML = '';
+            
+            // Get students data
+            let students = [];
+            if (typeof dataSync !== 'undefined') {
+                students = dataSync.data.students || [];
+            } else {
+                students = window.students || [];
+            }
+            
+            if (students.length === 0) {
+                studentsList.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="px-4 py-3 text-center text-gray-500 dark:text-gray-400">
+                            No students found. Add students to get started.
+                        </td>
+                    </tr>
+                `;
+            } else {
+                students.forEach(student => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="px-4 py-3 whitespace-nowrap">
+                            <div class="flex items-center">
+                                <div class="text-sm font-medium text-gray-900 dark:text-white">${student.name}</div>
+                            </div>
+                        </td>
+                        <td class="px-4 py-3 whitespace-nowrap">
+                            <div class="text-sm text-gray-500 dark:text-gray-400">${student.id}</div>
+                        </td>
+                        <td class="px-4 py-3 whitespace-nowrap">
+                            <div class="text-sm text-gray-500 dark:text-gray-400">${student.class}</div>
+                        </td>
+                        <td class="px-4 py-3 whitespace-nowrap">
+                            <div class="text-sm text-gray-500 dark:text-gray-400">${student.familyNumber}</div>
+                        </td>
+                        <td class="px-4 py-3 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusClass(student.status)}">
+                                ${student.status || 'In School'}
+                            </span>
+                        </td>
+                        <td class="px-4 py-3 whitespace-nowrap text-right text-sm font-medium">
+                            <button class="text-primary hover:text-primary-dark mr-2" onclick="editStudent('${student.id}')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="text-red-600 hover:text-red-900" onclick="deleteStudent('${student.id}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
                     `;
-                } else {
-                    students.forEach(student => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                            <td class="px-4 py-3 whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <div class="text-sm font-medium text-gray-900 dark:text-white">${student.name}</div>
-                                </div>
-                            </td>
-                            <td class="px-4 py-3 whitespace-nowrap">
-                                <div class="text-sm text-gray-500 dark:text-gray-400">${student.id}</div>
-                            </td>
-                            <td class="px-4 py-3 whitespace-nowrap">
-                                <div class="text-sm text-gray-500 dark:text-gray-400">${student.class}</div>
-                            </td>
-                            <td class="px-4 py-3 whitespace-nowrap">
-                                <div class="text-sm text-gray-500 dark:text-gray-400">${student.familyNumber}</div>
-                            </td>
-                            <td class="px-4 py-3 whitespace-nowrap">
-                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusClass(student.status)}">
-                                    ${student.status || 'In School'}
-                                </span>
-                            </td>
-                            <td class="px-4 py-3 whitespace-nowrap text-right text-sm font-medium">
-                                <button class="text-primary hover:text-primary-dark mr-2" onclick="editStudent('${student.id}')">
+                    studentsList.appendChild(row);
+                });
+            }
+            
+            // Update student count
+            document.getElementById('studentCount').textContent = students.length;
+        }
+        
+        // Refresh classes tab
+        function refreshClassesTab() {
+            const classesList = document.getElementById('classList');
+            if (!classesList) return;
+            
+            classesList.innerHTML = '';
+            
+            // Get classes data
+            let classes = [];
+            if (typeof dataSync !== 'undefined') {
+                classes = dataSync.data.classes || [];
+            } else {
+                classes = window.classesData || [];
+            }
+            
+            if (classes.length === 0) {
+                classesList.innerHTML = `
+                    <div class="col-span-full p-4 text-center text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        No classes found. Add classes to get started.
+                    </div>
+                `;
+            } else {
+                classes.forEach(classData => {
+                    const classCard = document.createElement('div');
+                    classCard.className = 'bg-white dark:bg-gray-800 rounded-lg shadow p-4';
+                    classCard.innerHTML = `
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">${classData.name}</h3>
+                            <div>
+                                <button class="text-primary hover:text-primary-dark mr-1" onclick="editClass('${classData.id}')">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button class="text-red-600 hover:text-red-900" onclick="deleteStudent('${student.id}')">
+                                <button class="text-red-600 hover:text-red-900" onclick="deleteClass('${classData.id}')">
                                     <i class="fas fa-trash"></i>
                                 </button>
-                            </td>
-                        `;
-                        studentsList.appendChild(row);
-                    });
-                }
-                
-                // Update student count
-                document.getElementById('studentCount').textContent = students.length;
-            }
-            
-            // Update classes list
-            const classesList = document.getElementById('classList');
-            if (classesList) {
-                classesList.innerHTML = '';
-                
-                if (classes.length === 0) {
-                    classesList.innerHTML = `
-                        <div class="col-span-full p-4 text-center text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                            No classes found. Add classes to get started.
+                            </div>
+                        </div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400 mb-2">
+                            <div><i class="fas fa-id-card mr-1"></i> ID: ${classData.id}</div>
+                            <div><i class="fas fa-chalkboard-teacher mr-1"></i> Teacher: ${classData.teacher}</div>
+                            <div><i class="fas fa-door-open mr-1"></i> Room: ${classData.room}</div>
+                        </div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">
+                            <span class="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 px-2 py-1 rounded">
+                                ${getStudentCountInClass(classData.id)} students
+                            </span>
                         </div>
                     `;
+                    classesList.appendChild(classCard);
+                });
+            }
+        }
+        
+        // Refresh users tab
+        function refreshUsersTab() {
+            const usersList = document.getElementById('usersList');
+            if (!usersList) return;
+            
+            usersList.innerHTML = '';
+            
+            // Get users data
+            let users = [];
+            if (typeof dataSync !== 'undefined') {
+                users = dataSync.data.users || [];
+            } else {
+                users = window.users || [];
+            }
+            
+            // Add default users if none exist
+            if (users.length === 0) {
+                users = [
+                    { username: 'admin', role: 'admin', fullName: 'Administrator' },
+                    { username: 'reception', role: 'reception', fullName: 'Reception Staff' },
+                    { username: 'security', role: 'security', fullName: 'Security Staff' },
+                    { username: 'teacher', role: 'teacher', fullName: 'Teacher' }
+                ];
+                
+                // Save users
+                if (typeof dataSync !== 'undefined') {
+                    dataSync.updateData({ users });
                 } else {
-                    classes.forEach(classData => {
-                        const classCard = document.createElement('div');
-                        classCard.className = 'bg-white dark:bg-gray-800 rounded-lg shadow p-4';
-                        classCard.innerHTML = `
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-lg font-medium text-gray-900 dark:text-white">${classData.name}</h3>
-                                <div>
-                                    <button class="text-primary hover:text-primary-dark mr-1" onclick="editClass('${classData.id}')">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="text-red-600 hover:text-red-900" onclick="deleteClass('${classData.id}')">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="text-sm text-gray-500 dark:text-gray-400 mb-2">
-                                <div><i class="fas fa-id-card mr-1"></i> ID: ${classData.id}</div>
-                                <div><i class="fas fa-chalkboard-teacher mr-1"></i> Teacher: ${classData.teacher}</div>
-                                <div><i class="fas fa-door-open mr-1"></i> Room: ${classData.room}</div>
-                            </div>
-                            <div class="text-xs text-gray-500 dark:text-gray-400">
-                                <span class="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 px-2 py-1 rounded">
-                                    ${getStudentCountInClass(classData.id)} students
-                                </span>
-                            </div>
-                        `;
-                        classesList.appendChild(classCard);
-                    });
+                    window.users = users;
+                    saveData();
                 }
             }
+            
+            users.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="px-4 py-3 whitespace-nowrap">
+                        <div class="text-sm font-medium text-gray-900 dark:text-white">${user.username}</div>
+                    </td>
+                    <td class="px-4 py-3 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">
+                            ${user.role}
+                        </span>
+                    </td>
+                    <td class="px-4 py-3 whitespace-nowrap">
+                        <div class="text-sm text-gray-500 dark:text-gray-400">${user.fullName}</div>
+                    </td>
+                    <td class="px-4 py-3 whitespace-nowrap text-right text-sm font-medium">
+                        <button class="text-primary hover:text-primary-dark mr-2" onclick="editUser('${user.username}')">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="text-red-600 hover:text-red-900 ${user.username === 'admin' ? 'opacity-50 cursor-not-allowed' : ''}" 
+                                onclick="deleteUser('${user.username}')" 
+                                ${user.username === 'admin' ? 'disabled' : ''}>
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                usersList.appendChild(row);
+            });
+        }
+        
+        // Refresh system tab
+        function refreshSystemTab() {
+            // Get data for statistics
+            let students = [];
+            let classes = [];
+            
+            if (typeof dataSync !== 'undefined') {
+                students = dataSync.data.students || [];
+                classes = dataSync.data.classes || [];
+            } else {
+                students = window.students || [];
+                classes = window.classesData || [];
+            }
+            
+            // Update statistics
+            document.getElementById('statTotalStudents').textContent = students.length;
+            document.getElementById('statTotalClasses').textContent = classes.length;
+            
+            const waitingStudents = students.filter(s => !s.status || s.status === 'In School').length;
+            const absentStudents = students.filter(s => s.status === 'Absent').length;
+            
+            document.getElementById('statStudentsWaiting').textContent = waitingStudents;
+            document.getElementById('statStudentsAbsent').textContent = absentStudents;
         }
         
         // Get student count in a specific class
         function getStudentCountInClass(classId) {
-            const students = dataSync.data.students || [];
+            let students = [];
+            
+            if (typeof dataSync !== 'undefined') {
+                students = dataSync.data.students || [];
+            } else {
+                students = window.students || [];
+            }
+            
             return students.filter(student => student.class === classId).length;
         }
         
@@ -475,6 +991,23 @@
             }
         }
         
+        // Show add student modal
+        function showAddStudentModal() {
+            // Implementation depends on your UI
+            console.log("Showing add student modal");
+            
+            // Example implementation:
+            const studentData = {
+                id: 'student_' + Date.now(),
+                name: 'New Student',
+                class: 'Class A',
+                familyNumber: '101',
+                status: 'In School'
+            };
+            
+            addStudent(studentData);
+        }
+        
         // Add a new student
         function addStudent(studentData) {
             // Add ID if not provided
@@ -482,16 +1015,27 @@
                 studentData.id = 'student_' + Date.now();
             }
             
-            // Use data sync to add student
-            dataSync.addStudent(studentData)
-                .then(() => {
-                    console.log("Student added and synchronized");
-                    refreshCurrentView();
-                })
-                .catch(error => {
-                    console.error("Error adding student:", error);
-                    alert("Error adding student: " + error.message);
-                });
+            if (typeof dataSync !== 'undefined') {
+                // Use data sync to add student
+                dataSync.addStudent(studentData)
+                    .then(() => {
+                        console.log("Student added and synchronized");
+                        refreshCurrentView();
+                    })
+                    .catch(error => {
+                        console.error("Error adding student:", error);
+                        alert("Error adding student: " + error.message);
+                    });
+            } else {
+                // Fallback to localStorage
+                if (!window.students) {
+                    window.students = [];
+                }
+                
+                window.students.push(studentData);
+                saveData();
+                refreshCurrentView();
+            }
         }
         
         // Edit a student
@@ -499,37 +1043,68 @@
             // Implementation depends on your UI
             console.log("Editing student:", studentId);
             
-            // Example: Show edit modal and load student data
-            const students = dataSync.data.students || [];
+            // Get student data
+            let students = [];
+            if (typeof dataSync !== 'undefined') {
+                students = dataSync.data.students || [];
+            } else {
+                students = window.students || [];
+            }
+            
             const student = students.find(s => s.id === studentId);
             
             if (student) {
-                // Show edit modal with student data
-                // This is just a placeholder - implement according to your UI
+                // Example: Show edit modal with student data
                 alert(`Editing student: ${student.name}`);
+                
+                // Example: Update student status
+                updateStudentStatus(studentId, 'Picked Up');
             }
         }
         
         // Delete a student
         function deleteStudent(studentId) {
             if (confirm("Are you sure you want to delete this student?")) {
-                // Get current students
-                const students = dataSync.data.students || [];
-                
-                // Filter out the student to delete
-                const updatedStudents = students.filter(s => s.id !== studentId);
-                
-                // Update data
-                dataSync.updateData({ students: updatedStudents })
-                    .then(() => {
-                        console.log("Student deleted and synchronized");
-                        refreshCurrentView();
-                    })
-                    .catch(error => {
-                        console.error("Error deleting student:", error);
-                        alert("Error deleting student: " + error.message);
-                    });
+                if (typeof dataSync !== 'undefined') {
+                    // Get current students
+                    const students = dataSync.data.students || [];
+                    
+                    // Filter out the student to delete
+                    const updatedStudents = students.filter(s => s.id !== studentId);
+                    
+                    // Update data
+                    dataSync.updateData({ students: updatedStudents })
+                        .then(() => {
+                            console.log("Student deleted and synchronized");
+                            refreshCurrentView();
+                        })
+                        .catch(error => {
+                            console.error("Error deleting student:", error);
+                            alert("Error deleting student: " + error.message);
+                        });
+                } else {
+                    // Fallback to localStorage
+                    window.students = (window.students || []).filter(s => s.id !== studentId);
+                    saveData();
+                    refreshCurrentView();
+                }
             }
+        }
+        
+        // Show add class modal
+        function showAddClassModal() {
+            // Implementation depends on your UI
+            console.log("Showing add class modal");
+            
+            // Example implementation:
+            const classData = {
+                id: 'class_' + Date.now(),
+                name: 'New Class',
+                teacher: 'Teacher Name',
+                room: '101'
+            };
+            
+            addClass(classData);
         }
         
         // Add a new class
@@ -539,16 +1114,27 @@
                 classData.id = 'class_' + Date.now();
             }
             
-            // Use data sync to add class
-            dataSync.addClass(classData)
-                .then(() => {
-                    console.log("Class added and synchronized");
-                    refreshCurrentView();
-                })
-                .catch(error => {
-                    console.error("Error adding class:", error);
-                    alert("Error adding class: " + error.message);
-                });
+            if (typeof dataSync !== 'undefined') {
+                // Use data sync to add class
+                dataSync.addClass(classData)
+                    .then(() => {
+                        console.log("Class added and synchronized");
+                        refreshCurrentView();
+                    })
+                    .catch(error => {
+                        console.error("Error adding class:", error);
+                        alert("Error adding class: " + error.message);
+                    });
+            } else {
+                // Fallback to localStorage
+                if (!window.classesData) {
+                    window.classesData = [];
+                }
+                
+                window.classesData.push(classData);
+                saveData();
+                refreshCurrentView();
+            }
         }
         
         // Edit a class
@@ -556,13 +1142,18 @@
             // Implementation depends on your UI
             console.log("Editing class:", classId);
             
-            // Example: Show edit modal and load class data
-            const classes = dataSync.data.classes || [];
+            // Get class data
+            let classes = [];
+            if (typeof dataSync !== 'undefined') {
+                classes = dataSync.data.classes || [];
+            } else {
+                classes = window.classesData || [];
+            }
+            
             const classData = classes.find(c => c.id === classId);
             
             if (classData) {
-                // Show edit modal with class data
-                // This is just a placeholder - implement according to your UI
+                // Example: Show edit modal with class data
                 alert(`Editing class: ${classData.name}`);
             }
         }
@@ -570,50 +1161,278 @@
         // Delete a class
         function deleteClass(classId) {
             if (confirm("Are you sure you want to delete this class?")) {
-                // Get current classes
-                const classes = dataSync.data.classes || [];
-                
-                // Filter out the class to delete
-                const updatedClasses = classes.filter(c => c.id !== classId);
-                
-                // Update data
-                dataSync.updateData({ classes: updatedClasses })
-                    .then(() => {
-                        console.log("Class deleted and synchronized");
-                        refreshCurrentView();
-                    })
-                    .catch(error => {
-                        console.error("Error deleting class:", error);
-                        alert("Error deleting class: " + error.message);
-                    });
+                if (typeof dataSync !== 'undefined') {
+                    // Get current classes
+                    const classes = dataSync.data.classes || [];
+                    
+                    // Filter out the class to delete
+                    const updatedClasses = classes.filter(c => c.id !== classId);
+                    
+                    // Update data
+                    dataSync.updateData({ classes: updatedClasses })
+                        .then(() => {
+                            console.log("Class deleted and synchronized");
+                            refreshCurrentView();
+                        })
+                        .catch(error => {
+                            console.error("Error deleting class:", error);
+                            alert("Error deleting class: " + error.message);
+                        });
+                } else {
+                    // Fallback to localStorage
+                    window.classesData = (window.classesData || []).filter(c => c.id !== classId);
+                    saveData();
+                    refreshCurrentView();
+                }
+            }
+        }
+        
+        // Edit a user
+        function editUser(username) {
+            // Implementation depends on your UI
+            console.log("Editing user:", username);
+            
+            // Get user data
+            let users = [];
+            if (typeof dataSync !== 'undefined') {
+                users = dataSync.data.users || [];
+            } else {
+                users = window.users || [];
+            }
+            
+            const user = users.find(u => u.username === username);
+            
+            if (user) {
+                // Example: Show edit modal with user data
+                alert(`Editing user: ${user.username}`);
+            }
+        }
+        
+        // Delete a user
+        function deleteUser(username) {
+            if (username === 'admin') {
+                alert("Cannot delete admin user");
+                return;
+            }
+            
+            if (confirm("Are you sure you want to delete this user?")) {
+                if (typeof dataSync !== 'undefined') {
+                    // Get current users
+                    const users = dataSync.data.users || [];
+                    
+                    // Filter out the user to delete
+                    const updatedUsers = users.filter(u => u.username !== username);
+                    
+                    // Update data
+                    dataSync.updateData({ users: updatedUsers })
+                        .then(() => {
+                            console.log("User deleted and synchronized");
+                            refreshCurrentView();
+                        })
+                        .catch(error => {
+                            console.error("Error deleting user:", error);
+                            alert("Error deleting user: " + error.message);
+                        });
+                } else {
+                    // Fallback to localStorage
+                    window.users = (window.users || []).filter(u => u.username !== username);
+                    saveData();
+                    refreshCurrentView();
+                }
             }
         }
         
         // Update student status
         function updateStudentStatus(studentId, newStatus) {
-            // Use data sync to update student
-            dataSync.updateStudent(studentId, { status: newStatus })
-                .then(() => {
-                    console.log("Student status updated and synchronized");
+            if (typeof dataSync !== 'undefined') {
+                // Use data sync to update student
+                dataSync.updateStudent(studentId, { status: newStatus })
+                    .then(() => {
+                        console.log("Student status updated and synchronized");
+                        refreshCurrentView();
+                    })
+                    .catch(error => {
+                        console.error("Error updating student status:", error);
+                        alert("Error updating student status: " + error.message);
+                    });
+            } else {
+                // Fallback to localStorage
+                const students = window.students || [];
+                const studentIndex = students.findIndex(s => s.id === studentId);
+                
+                if (studentIndex !== -1) {
+                    students[studentIndex].status = newStatus;
+                    saveData();
                     refreshCurrentView();
-                })
-                .catch(error => {
-                    console.error("Error updating student status:", error);
-                    alert("Error updating student status: " + error.message);
-                });
+                }
+            }
         }
         
-        // Placeholder functions for other views
+        // Reset all student statuses
+        function resetAllStudentStatuses() {
+            if (confirm("Are you sure you want to reset all student statuses to 'In School'?")) {
+                if (typeof dataSync !== 'undefined') {
+                    // Get current students
+                    const students = dataSync.data.students || [];
+                    
+                    // Update all student statuses
+                    const updatedStudents = students.map(student => ({
+                        ...student,
+                        status: 'In School'
+                    }));
+                    
+                    // Update data
+                    dataSync.updateData({ students: updatedStudents })
+                        .then(() => {
+                            console.log("All student statuses reset and synchronized");
+                            refreshCurrentView();
+                        })
+                        .catch(error => {
+                            console.error("Error resetting student statuses:", error);
+                            alert("Error resetting student statuses: " + error.message);
+                        });
+                } else {
+                    // Fallback to localStorage
+                    const students = window.students || [];
+                    
+                    students.forEach(student => {
+                        student.status = 'In School';
+                    });
+                    
+                    saveData();
+                    refreshCurrentView();
+                }
+            }
+        }
+        
+        // Create data backup
+        function createDataBackup() {
+            let data = {};
+            
+            if (typeof dataSync !== 'undefined') {
+                data = {
+                    students: dataSync.data.students || [],
+                    classes: dataSync.data.classes || [],
+                    users: dataSync.data.users || [],
+                    systemMode: systemMode,
+                    timestamp: Date.now()
+                };
+            } else {
+                data = {
+                    students: window.students || [],
+                    classes: window.classesData || [],
+                    users: window.users || [],
+                    systemMode: systemMode,
+                    timestamp: Date.now()
+                };
+            }
+            
+            // Convert to JSON string
+            const jsonData = JSON.stringify(data);
+            
+            // Create a blob and download link
+            const blob = new Blob([jsonData], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            // Create a download link
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `dismissal_manager_backup_${new Date().toISOString().slice(0, 10)}.json`;
+            document.body.appendChild(a);
+            a.click();
+            
+            // Clean up
+            setTimeout(() => {
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 0);
+        }
+        
+        // Show restore data modal
+        function showRestoreDataModal() {
+            // Implementation depends on your UI
+            console.log("Showing restore data modal");
+            
+            // Example implementation:
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            
+            input.onchange = (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        try {
+                            const data = JSON.parse(e.target.result);
+                            restoreDataFromBackup(data);
+                        } catch (error) {
+                            console.error("Error parsing backup file:", error);
+                            alert("Error parsing backup file: " + error.message);
+                        }
+                    };
+                    reader.readAsText(file);
+                }
+            };
+            
+            input.click();
+        }
+        
+        // Restore data from backup
+        function restoreDataFromBackup(data) {
+            if (confirm("Are you sure you want to restore data from backup? This will overwrite all current data.")) {
+                if (typeof dataSync !== 'undefined') {
+                    // Use data sync to update all data
+                    dataSync.updateData({
+                        students: data.students || [],
+                        classes: data.classes || [],
+                        users: data.users || []
+                    })
+                        .then(() => {
+                            console.log("Data restored from backup and synchronized");
+                            
+                            // Update system mode
+                            if (data.systemMode) {
+                                systemMode = data.systemMode;
+                                updateSystemStatus();
+                            }
+                            
+                            refreshCurrentView();
+                        })
+                        .catch(error => {
+                            console.error("Error restoring data from backup:", error);
+                            alert("Error restoring data from backup: " + error.message);
+                        });
+                } else {
+                    // Fallback to localStorage
+                    window.students = data.students || [];
+                    window.classesData = data.classes || [];
+                    window.users = data.users || [];
+                    
+                    if (data.systemMode) {
+                        systemMode = data.systemMode;
+                        updateSystemStatus();
+                    }
+                    
+                    saveData();
+                    refreshCurrentView();
+                }
+            }
+        }
+        
+        // Refresh reception view
         function refreshReceptionView() {
             // Implement based on your UI
             console.log("Refreshing reception view");
         }
         
+        // Refresh security view
         function refreshSecurityView() {
             // Implement based on your UI
             console.log("Refreshing security view");
         }
         
+        // Refresh teacher view
         function refreshTeacherView() {
             // Implement based on your UI
             console.log("Refreshing teacher view");
